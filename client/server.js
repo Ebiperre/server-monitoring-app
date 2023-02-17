@@ -1,9 +1,9 @@
-
 const os = require('os');
 const io = require('socket.io')();
 
-const PORT = 3000;
+const PORT = 4000;
 
+// Collects data about the server's CPUs and memory usage
 function collectServerData() {
   const cpus = os.cpus();
   const totalMemory = os.totalmem();
@@ -17,6 +17,7 @@ function collectServerData() {
   };
 }
 
+// Sends server data to clients every second
 io.on('connection', (socket) => {
   console.log('Client connected');
 
@@ -31,6 +32,20 @@ io.on('connection', (socket) => {
   });
 });
 
-io.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+// Starts the server and handles errors
+try {
+  io.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+} catch (err) {
+  console.error(`Error starting server: ${err.message}`);
+}
+
+// Gracefully shuts down the server on SIGINT signal
+process.on('SIGINT', () => {
+  console.log('Server shutting down');
+  io.close(() => {
+    console.log('Server stopped');
+    process.exit();
+  });
 });
