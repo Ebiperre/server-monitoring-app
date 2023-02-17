@@ -27,3 +27,7 @@ function emitServerData() {
   
     io.emit('serverData', { cpus, totalMemory, usedMemory });
   }
+
+  setInterval(() => {
+    emitServerData();
+  }, 1000);
