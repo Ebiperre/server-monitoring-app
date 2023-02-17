@@ -1,6 +1,5 @@
-
 <template>
-  <div id="app">
+  <div id="App">
     <ServerStatus />
     <ServerData />
   </div>
