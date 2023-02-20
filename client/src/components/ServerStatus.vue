@@ -1,4 +1,3 @@
-
 <template>
     <div class="server-status">
       <h1>Server Status</h1>

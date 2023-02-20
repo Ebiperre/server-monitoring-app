@@ -18,7 +18,7 @@ function collectServerData() {
 }
 
 // Sends server data to clients every second
-io.on('connection', (socket) => {
+io.on('connection', function(socket){
   console.log('Client connected');
 
   const interval = setInterval(() => {
@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
     socket.emit('serverData', serverData);
   }, 1000);
 
-  socket.on('disconnect', () => {
+  socket.on('disconnect', function() {
     clearInterval(interval);
     console.log('Client disconnected');
   });
